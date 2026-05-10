@@ -321,17 +321,378 @@ The system was designed to support responsive access across desktop and mobile d
 
 # CHAPTER 4
 
+# MODULES OF THE SYSTEM
+
+---
+
+# 4.1 User Authentication & Management Module
+
+### Purpose
+
+Handles user accounts, authentication, authorization, and profile management.
+
+### Related Files
+
+```text
+models/User.js
+controllers/userController.js
+middlewares/auth.js
+routes/userRotes.js
+```
+
+### Features
+
+* User registration
+* Login/logout
+* JWT/session authentication
+* Protected routes
+* Profile handling
+* User data management
+
+---
+
+# 4.2 Social Feed / Post Module
+
+### Purpose
+
+Allows users to create and interact with posts.
+
+### Related Files
+
+```text
+models/Post.js
+controllers/postController.js
+routes/postRoutes.js
+```
+
+### Features
+
+* Create posts
+* Upload media posts
+* View feed
+* Delete/update posts
+* Social interaction support
+
+---
+
+# 4.3 Stories Module
+
+### Purpose
+
+Implements temporary story-sharing functionality similar to Instagram/Facebook stories.
+
+### Related Files
+
+```text
+models/Story.js
+controllers/storyController.js
+routes/storyRoutes.js
+```
+
+### Features
+
+* Upload stories
+* View stories
+* Temporary content lifecycle
+* Media story handling
+
+---
+
+# 4.4 Messaging / Chat Module
+
+### Purpose
+
+Supports direct communication between users.
+
+### Related Files
+
+```text
+models/Message.js
+models/Connection.js
+controllers/messageController.js
+routes/messageRoutes.js
+```
+
+### Features
+
+* Send messages
+* Receive messages
+* Chat history storage
+* User-to-user connections
+* Conversation management
+
+---
+
+# 4.5 Connection / Relationship Module
+
+### Purpose
+
+Manages relationships between users.
+
+### Related Files
+
+```text
+models/Connection.js
+```
+
+### Features
+
+* User connections/friends
+* Following/follower logic
+* Social graph management
+
+---
+
+# 4.6 Media Upload Module
+
+### Purpose
+
+Handles file uploads and media processing.
+
+### Related Files
+
+```text
+configs/multer.js
+```
+
+### Features
+
+* Image upload handling
+* Multipart form processing
+* File validation
+* Upload middleware integration
+
+---
+
+# 4.7 Cloud Media Storage Module
+
+### Purpose
+
+Stores and manages uploaded media in cloud infrastructure.
+
+### Related Files
+
+```text
+configs/imageKit.js
+```
+
+### Features
+
+* Cloud image hosting
+* CDN delivery
+* Media optimization
+* Image storage management
+
+---
+
+# 4.8 Email Notification Module
+
+### Purpose
+
+Handles email-based communication.
+
+### Related Files
+
+```text
+configs/nodeMailer.js
+```
+
+### Features
+
+* Email sending
+* OTP emails
+* Password reset emails
+* Notification emails
+
+---
+
+# 4.9 Authentication Middleware Module
+
+### Purpose
+
+Secures APIs and validates user access.
+
+### Related Files
+
+```text
+middlewares/auth.js
+```
+
+### Features
+
+* Token verification
+* Protected route security
+* Authorization validation
+* Request authentication
+
+---
+
+# 4.10 Database Management Module
+
+### Purpose
+
+Establishes and manages database connectivity.
+
+### Related Files
+
+```text
+configs/db.js
+```
+
+### Features
+
+* MongoDB connection
+* Database initialization
+* Connection management
+* Environment configuration
+
+---
+
+# 4.11 API Routing Module
+
+### Purpose
+
+Organizes backend endpoints.
+
+### Related Files
+
+```text
+routes/
+├── messageRoutes.js
+├── postRoutes.js
+├── storyRoutes.js
+└── userRotes.js
+```
+
+### Features
+
+* REST API endpoint management
+* Route separation
+* Feature-based routing
+
+---
+
+# 4.12 Backend Server Module
+
+### Purpose
+
+Main backend execution and API initialization.
+
+### Related Files
+
+```text
+server.js
+```
+
+### Features
+
+* Express app initialization
+* Middleware loading
+* Route mounting
+* Server startup
+
+---
+
+# 4.13 Frontend UI Module
+
+### Purpose
+
+Provides user interface and client-side functionality.
+
+### Related Files
+
+```text
+client/src/
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+### Features
+
+* UI rendering
+* Client-side routing
+* State handling
+* API interaction
+* Responsive design
+
+---
+
+# 4.14 Styling & Design Module
+
+### Purpose
+
+Controls application styling and responsiveness.
+
+### Related Files
+
+```text
+tailwind.config.js
+index.css
+```
+
+### Features
+
+* Responsive UI
+* Utility-first styling
+* Theme consistency
+
+---
+
+# 4.15 Deployment & Hosting Module
+
+### Purpose
+
+Handles deployment configuration.
+
+### Related Files
+
+```text
+client/vercel.json
+server/vercel.json
+```
+
+### Features
+
+* Frontend deployment
+* Backend deployment
+* Hosting configuration
+
+---
+
+# 4.16 Background Workflow / Event Processing Module
+
+### Purpose
+
+Handles asynchronous workflows and background jobs.
+
+### Related Files
+
+```text
+inngest/index.js
+```
+
+### Features
+
+* Background task processing
+* Event-driven workflows
+* Story expiration handling
+* Notification workflow management
+
+
+# CHAPTER 5
+
 # SYSTEM IMPLEMENTATION
 
 ---
 
-## 4.1 Introduction
+## 5.1 Introduction
 
 System implementation is the phase in which the planned design and functionalities of the ZingUp platform were converted into a working web application. The implementation process focused on frontend development, backend API integration, database management, authentication, real-time communication, and cloud-based media handling.
 
 ---
 
-## 4.2 Frontend Implementation
+## 5.2 Frontend Implementation
 
 The frontend of ZingUp was developed using React.js and Tailwind CSS. React.js was used to build reusable UI components and manage dynamic user interactions, while Tailwind CSS was used for responsive and modern interface design.
 
@@ -346,7 +707,7 @@ The frontend includes:
 
 ---
 
-## 4.3 Backend Implementation
+## 5.3 Backend Implementation
 
 The backend was implemented using Node.js and Express.js. REST APIs were developed for handling authentication, post management, messaging, profile handling, and social interactions.
 
@@ -359,7 +720,7 @@ The backend also manages:
 
 ---
 
-## 4.4 Database Implementation
+## 5.4 Database Implementation
 
 MongoDB Atlas was used for database management. Collections such as User, Post, Story, Message, and Connection were implemented to manage platform data efficiently.
 
@@ -367,7 +728,7 @@ The document-oriented database structure supports flexible and scalable storage 
 
 ---
 
-## 4.5 Authentication Implementation
+## 5.5 Authentication Implementation
 
 Secure authentication and session management were implemented using Clerk Authentication. The authentication system manages:
 
@@ -380,7 +741,7 @@ This implementation improves security and simplifies authentication workflows wi
 
 ---
 
-## 4.6 Real-Time Messaging Implementation
+## 5.6 Real-Time Messaging Implementation
 
 Real-time messaging functionality was implemented using Server-Sent Events (SSE). This allows users to send and receive messages with lightweight real-time communication support.
 
@@ -392,7 +753,7 @@ The messaging system supports:
 
 ---
 
-## 4.7 Media Upload and Cloud Storage Implementation
+## 5.7 Media Upload and Cloud Storage Implementation
 
 Media uploads were handled using Multer middleware and ImageKit cloud services. ImageKit was used for cloud-based image storage, optimization, and delivery.
 
@@ -405,7 +766,7 @@ The implementation supports:
 
 ---
 
-## 4.8 Background Task Implementation
+## 5.8 Background Task Implementation
 
 Background tasks and asynchronous workflows were implemented using Inngest. These tasks include:
 
@@ -417,17 +778,17 @@ This implementation improved system automation and workflow management.
 
 ---
 
-## 4.9 User Interface Implementation
+## 5.9 User Interface Implementation
 
 The user interface was designed using a responsive layout approach to support both desktop and mobile devices. Tailwind CSS was used to maintain consistency, responsiveness, and modern visual design throughout the platform.
 
-# CHAPTER 5
+# CHAPTER 6
 
 # SYSTEM MAINTENANCE, EVALUATION AND COST BENEFIT ANALYSIS
 
 ---
 
-## 5.1 System Maintenance
+## 6.1 System Maintenance
 
 System maintenance is important for ensuring the stability, security, and performance of the ZingUp platform after deployment. Maintenance activities include bug fixing, performance optimization, database monitoring, and feature enhancement.
 
@@ -435,7 +796,7 @@ The modular architecture of the platform simplifies future updates and maintenan
 
 ---
 
-## 5.2 System Evaluation
+## 6.2 System Evaluation
 
 The ZingUp platform was evaluated based on functionality, performance, responsiveness, and usability. Testing confirmed that the system successfully supports authentication, real-time messaging, story handling, media uploads, and developer networking features.
 
@@ -443,7 +804,7 @@ The platform provides a responsive user interface, secure authentication system,
 
 ---
 
-## 5.3 Cost Analysis
+## 6.3 Cost Analysis
 
 The development cost of ZingUp was minimized by using open-source technologies and cloud-based services. Technologies such as React.js, Node.js, Express.js, and MongoDB Atlas reduced software licensing costs.
 
@@ -451,7 +812,7 @@ Development tools such as Visual Studio Code and GitHub were also freely availab
 
 ---
 
-## 5.4 Benefit Analysis
+## 6.4 Benefit Analysis
 
 ZingUp provides a unified ecosystem for developers by integrating networking, communication, technical content sharing, and collaboration into a single platform.
 
