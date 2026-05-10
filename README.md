@@ -550,6 +550,21 @@ The ZingUp platform was successfully tested across all major modules and produce
 * The platform maintained responsive performance across devices
 * Overall system workflow operated smoothly and efficiently
 
+# APPLICATION SCREENSHOT 
+
+<img width="1366" height="768" alt="Screenshot (1121)" src="https://github.com/user-attachments/assets/86fbb0dd-bf8f-4ffe-9b88-bfe387685cde" />
+<img width="1366" height="768" alt="Screenshot (1102)" src="https://github.com/user-attachments/assets/e14f4976-1db8-4ab4-9007-0f33fd3d9271" />
+<img width="1366" height="768" alt="Screenshot (1103)" src="https://github.com/user-attachments/assets/2c0c308a-2b86-4332-bbd2-c5e0c5779f21" />
+<img width="1366" height="768" alt="Screenshot (1104)" src="https://github.com/user-attachments/assets/75501f13-0d27-448a-bd0f-1444876d8a16" />
+<img width="1366" height="768" alt="Screenshot (1105)" src="https://github.com/user-attachments/assets/3f6b3d10-db02-4485-8394-ed502c72af15" />
+<img width="1366" height="768" alt="Screenshot (1106)" src="https://github.com/user-attachments/assets/af25d3bd-1955-451b-a918-7c055cfd88cb" />
+<img width="1366" height="768" alt="Screenshot (1107)" src="https://github.com/user-attachments/assets/191c1524-dea0-4907-a593-e6469b0f11e1" />
+<img width="1366" height="768" alt="Screenshot (1110)" src="https://github.com/user-attachments/assets/302fd73d-e03b-4ddc-b7b3-fbb852ff4f30" />
+<img width="1366" height="768" alt="Screenshot (1111)" src="https://github.com/user-attachments/assets/ae0df552-e755-4231-8627-36973c8c9234" />
+
+
+
+
 # Project Code
 ## frontend
 ##### client/src/main.jsx — App Entry Point
