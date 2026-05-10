@@ -59,46 +59,19 @@ Future enhancements may include AI-based developer recommendations, collaborativ
 
 ---
 
-# Modules of the Project
+## Modules of the Project
 
 The ZingUp platform consists of the following major modules:
 
-## 1. Authentication and Account Management Module
-
-This module manages user registration, login, authentication, and account security using Clerk authentication services.
-
-## 2. Feed and Social Interaction Module
-
-This module allows users to create posts, interact with feeds, and share technical updates and code snippets.
-
-## 3. Stories Module
-
-This module supports temporary story uploads and multimedia sharing with automatic expiration handling.
-
-## 4. Real-Time Messaging Module
-
-This module enables direct communication between users using Server-Sent Events (SSE) based messaging architecture.
-
-## 5. Connections and Discovery Module
-
-This module helps developers discover profiles, follow users, and build professional connections.
-
-## 6. Profile Management Module
-
-This module allows users to manage profile information, developer portfolios, and social media links.
-
-## 7. Media Upload and Cloud Storage Module
-
-This module handles media uploads and cloud-based image optimization using ImageKit.
-
-## 8. Notification and Email Service Module
-
-This module manages automated email notifications, reminders, and communication services.
-
-## 9. Database and Backend Management Module
-
-This module manages database operations, API routing, server-side logic, and backend services.
-
+1. Authentication and Account Management Module
+2. Feed and Social Interaction Module
+3. Stories Module
+4. Real-Time Messaging Module
+5. Connections and Discovery Module
+6. Profile Management Module
+7. Media Upload and Cloud Storage Module
+8. Notification and Email Service Module
+9. Database and Backend Management Module
 ---
 
 # Technology Stack Used
