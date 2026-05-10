@@ -551,8 +551,7 @@ The ZingUp platform was successfully tested across all major modules and produce
 * Overall system workflow operated smoothly and efficiently
 
 # APPLICATION SCREENSHOT 
-
-<img width="1366" height="768" alt="Screenshot (1121)" src="https://github.com/user-attachments/assets/86fbb0dd-bf8f-4ffe-9b88-bfe387685cde" />
+<img width="1366" height="768" alt="Screenshot (1122)" src="https://github.com/user-attachments/assets/b06da625-0632-4d6c-8b78-6f5411e199e9" />
 <img width="1366" height="768" alt="Screenshot (1102)" src="https://github.com/user-attachments/assets/e14f4976-1db8-4ab4-9007-0f33fd3d9271" />
 <img width="1366" height="768" alt="Screenshot (1103)" src="https://github.com/user-attachments/assets/2c0c308a-2b86-4332-bbd2-c5e0c5779f21" />
 <img width="1366" height="768" alt="Screenshot (1104)" src="https://github.com/user-attachments/assets/75501f13-0d27-448a-bd0f-1444876d8a16" />
