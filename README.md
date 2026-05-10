@@ -221,6 +221,101 @@ The workflow of ZingUp begins with user authentication and profile initializatio
 
 Media uploads are processed using ImageKit cloud services, while background tasks and notifications are handled using Inngest functions.
 
+# CHAPTER 3
+
+# SYSTEM PLANNING
+
+---
+
+## 3.1 Introduction
+
+System planning is an important phase in the development of the ZingUp platform. This phase focused on identifying project requirements, selecting suitable technologies, defining system objectives, and planning the overall workflow of the application.
+
+---
+
+## 3.2 Planning Objectives
+
+The major objectives considered during system planning were:
+
+* developing a developer-focused social networking platform,
+* supporting real-time communication,
+* enabling secure authentication,
+* providing cloud-based media handling,
+* and ensuring scalable system architecture.
+
+---
+
+## 3.3 Technology Stack Used
+
+### Frontend Technologies
+
+* React.js (Vite)
+* Tailwind CSS
+* JavaScript
+* HTML & CSS
+
+### Backend Technologies
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB Atlas
+
+### Authentication & Security
+
+* Clerk Authentication
+
+### Real-Time Communication
+
+* Server-Sent Events (SSE)
+
+### Cloud & Media Services
+
+* ImageKit
+* Inngest
+
+### Development Tools
+
+* Visual Studio Code
+* Git & GitHub
+
+---
+
+## 3.4 Hardware and Software Requirements
+
+### Hardware Requirements
+
+* Processor: Intel Core i3 or above
+* RAM: Minimum 4 GB
+* Storage: Minimum 20 GB free space
+* Internet Connectivity
+
+### Software Requirements
+
+* Windows/Linux Operating System
+* Visual Studio Code
+* Node.js Runtime Environment
+* MongoDB Atlas
+* Modern Web Browser (Chrome/Edge/Firefox)
+* Git & GitHub
+
+---
+
+## 3.5 Development Methodology
+
+The Agile development methodology was followed during the development of ZingUp. The project was divided into smaller modules such as authentication, messaging, stories, and feed management.
+
+Agile methodology supported incremental development, continuous testing, debugging, and feature enhancement throughout the project lifecycle.
+
+---
+
+## 3.6 Deployment Planning
+
+The platform was planned for cloud-based deployment to ensure scalability and accessibility. MongoDB Atlas was used for cloud database hosting, while the frontend and backend services were prepared for deployment on modern hosting platforms.
+
+The system was designed to support responsive access across desktop and mobile devices.
 
 
 
