@@ -551,10 +551,278 @@ The ZingUp platform was successfully tested across all major modules and produce
 * Overall system workflow operated smoothly and efficiently
 
 # Project Code
+## frontend
+##### client/src/main.jsx — App Entry Point
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import {BrowserRouter} from 'react-router-dom'
+import { ClerkProvider } from '@clerk/clerk-react'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
+import { ThemeProvider } from './context/ThemeContext'
+
+// Import your Publishable Key
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error('Missing Publishable Key')
+}
+
+createRoot(document.getElementById('root')).render(
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <BrowserRouter>
+     <Provider store={store}>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+     </Provider>  
+    </BrowserRouter>    
+  </ClerkProvider>
+)
+
+##### client/src/pages/Login.jsx — Login Page
+import React from 'react'
+import { assets } from '../assets/assets'
+import { Star } from 'lucide-react'
+import { SignIn } from '@clerk/clerk-react'
+import TypeWriter from '../components/TypeWriter'
+
+const Login = () => {
+  return (
+    <div className='min-h-screen flex flex-col md:flex-row bg-white dark:bg-gray-900 relative overflow-hidden'>
+      {/* Background Image - Full Coverage */}
+      <img src={assets.bgImage} alt="" className='absolute top-0 left-0 w-full h-full object-cover opacity-35' />
+
+     
+      <div className='flex-1 flex flex-col items-start justify-between p-6 md:p-10 lg:pl-40 relative z-10'>
+        <img src={assets.logo} alt="Logo" className='h-12 object-contain' />
+        <div>
+          <div className='flex items-center gap-3 mb-4 max-md:mt-10'>
+            <img src={assets.group_users} alt="Users" className='h-8 md:h-10' />
+            <div>
+              <div className='flex'>
+                {Array(5).fill(0).map((_, i) => (<Star key={i} className='size-4 md:size-4.5 text-transparent fill-amber-500' />))}
+              </div>
+              <p className='text-gray-700 dark:text-gray-300 text-sm'>Used by 10k+ developers</p>
+            </div>
+          </div>
+
+          {/* Enhanced Hero Headline - Modern & Premium */}
+          <div className='mt-6 md:mt-8'>
+            <h1 style={{ lineHeight: '1.0' }}>
+              <span
+                className='block text-gray-900 dark:text-white'
+                style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)', fontWeight: 750, letterSpacing: '-0.04em' }}
+              >
+                Build. Code.
+              </span>
+              <span className='block mt-1' style={{ fontSize: 'clamp(2.75rem, 6.5vw, 5rem)' }}>
+                <TypeWriter
+                  text="Collaborate."
+                  speed={80}
+                  className='hero-gradient-text'
+                  style={{
+                    fontWeight: 800,
+                    letterSpacing: '-0.045em',
+                  }}
+                />
+              </span>
+            </h1>
+          </div>
+
+          {/* Modern Tagline - Clean & Professional */}
+          <p className="mt-6 md:mt-7 text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium tracking-tight">
+            Where developers{" "}
+            <span className="relative font-semibold text-gray-900 dark:text-white">
+              build the future
+              <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-gradient-to-r from-violet-500 to-pink-500 rounded-full"></span>
+            </span>{" "}
+            together.
+          </p>
+        </div>
+        <span className='md:h-10'></span>
+      </div>
+
+      {/* Right side: Login Form */}
+      <div className='flex-1 flex items-center justify-center p-6 sm:p-10 relative z-10'>
+        <SignIn />
+      </div>
+    </div>
+  )
+}
+
+export default Login
 
 
+##### client/src/pages/Profile.jsx — Profile Page
 
+import React, { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { dummyPostsData, dummyUserData } from '../assets/assets'
+import { useEffect } from 'react'
+import Loading from '../components/Loading'
+import UserProfileInfo from '../components/UserProfileInfo'
+import PostCard from '../components/PostCard'
+import moment from 'moment'
+import ProfileModal from '../components/ProfileModal'
+import { useAuth } from '@clerk/clerk-react'
+import api from '../api/axios'
+import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
+import { Pencil } from 'lucide-react'
 
+const Profile = () => {
+
+  const currentUser = useSelector((state) => state.user.value)
+
+  const {getToken} = useAuth()
+  const {profileId} = useParams()
+  const [user, setUser] = useState(null)
+  const [posts, setPosts] = useState([])
+  const [activeTab, setActiveTab] = useState('posts')
+  const [showEdit, setShowEdit] = useState(false)
+
+  const fetchUser = async (profileId) => {
+    const token = await getToken()
+    try {
+      const { data } = await api.post(`/api/user/profiles`, {profileId}, {
+        headers: {Authorization: `Bearer ${token}`}
+      })
+      if(data.success){
+        setUser(data.profile)
+        setPosts(data.posts)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  useEffect(()=>{
+    if(profileId){
+      fetchUser(profileId)
+    }else{
+      fetchUser(currentUser._id)
+    }
+  },[profileId, currentUser])
+
+  return user ? (
+    <div className='relative h-full overflow-y-scroll bg-gray-50 p-6'>
+      <div className='max-w-3xl mx-auto'>
+        {/* Profile Card */}
+        <div className='bg-white rounded-2xl shadow overflow-hidden'>
+          {/* Cover Photo */}
+          <div className='group/cover relative h-40 md:h-56 bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 overflow-hidden'>
+            {user.cover_photo && <img src={user.cover_photo} alt='' className='w-full h-full object-cover'/>}
+            {!profileId && (
+              <button onClick={() => setShowEdit(true)} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover/cover:opacity-100 transition-all duration-200 cursor-pointer'>
+                <Pencil className='w-6 h-6'/>
+              </button>
+            )}
+          </div>
+          {/* User Info */}
+          <UserProfileInfo user={user} posts={posts} profileId={profileId} setShowEdit={setShowEdit}/>
+        </div>
+
+        {/* Tabs */}
+        <div className='mt-6'>
+          <div className='bg-white rounded-xl shadow p-1 flex max-w-md mx-auto'>
+            {["posts", "media", "likes"].map((tab)=>(
+              <button onClick={()=> setActiveTab(tab)} key={tab} className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${activeTab === tab ? "bg-indigo-600 text-white" : "text-gray-600 hover:text-gray-900"}`}>
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div>
+          {/* Posts */}
+          {activeTab === 'posts' && (
+            <div className='mt-6 flex flex-col items-center gap-6'>
+              {posts.map((post)=> <PostCard key={post._id} post={post}/>)}
+            </div>
+          )}
+
+        {/* Media */}
+          {activeTab === 'media' && (
+            <div className='flex flex-wrap mt-6 max-w-6xl'>
+              {
+                posts.filter((post)=>post.image_urls.length > 0).map((post)=>(
+                  <>
+                  {post.image_urls.map((image, index)=>(
+                    <Link target='_blank' to={image} key={index} className='relative group'>
+                      <img src={image} key={index} className='w-64 aspect-video object-cover' alt="" />
+                      <p className='absolute bottom-0 right-0 text-xs p-1 px-3 backdrop-blur-xl text-white opacity-0 group-hover:opacity-100 transition duration-300'>Posted {moment(post.createdAt).fromNow()}</p>
+                    </Link>
+                  ))}
+                  </>
+                ))
+              }
+            </div>
+          )}
+        
+        </div>
+      </div>
+      {/* Edit Profile Modal */}
+      {showEdit && <ProfileModal setShowEdit={setShowEdit}/>}
+    </div>
+  ) : (<Loading />)
+}
+
+export default Profile
+
+# client/src/pages/ChatBox.jsx — Real-Time Chat
+
+import { useState } from "react"
+
+const ChatBox = () => {
+
+  const [text, setText] = useState("")
+  const [messages, setMessages] = useState([])
+
+  const sendMessage = () => {
+    if (!text) return
+
+    setMessages([...messages, text])
+    setText("")
+  }
+
+  return (
+    <div>
+      
+      <div>
+        {messages.map((msg, i) => (
+          <p key={i}>{msg}</p>
+        ))}
+      </div>
+
+      <input
+        type="text"
+        value={text}
+        placeholder="Message"
+        onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+      />
+
+      <button onClick={sendMessage}>
+        Send
+      </button>
+
+    </div>
+  )
+}
+
+export default ChatBox
+
+##### client/src/api/axios.js — API Config
+import axios from 'axios';
+
+const api = axios.create({
+    baseURL: import.meta.env.VITE_BASEURL
+})
+
+export default api
+
+# Backend
 
 
 
