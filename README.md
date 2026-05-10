@@ -140,7 +140,91 @@ The scope of ZingUp covers the complete design, development, and deployment of a
 
 # CHAPTER 2 SYSTEM ANALYSIS & DESIGN 
 
+---
+
+## 2.1 System Architecture
+
+ZingUp follows a three-tier architecture consisting of:
+
+* Presentation Layer
+* Application Layer
+* Data Layer
+
+The frontend is developed using React.js and Tailwind CSS. The backend uses Node.js and Express.js for API handling and business logic. MongoDB Atlas is used for database management.
+
+The platform also integrates Clerk Authentication, ImageKit, Inngest, and Server-Sent Events (SSE) for authentication, media handling, background processing, and real-time messaging.
+
+**[Figure 2.1: System Architecture Diagram — Insert diagram here]**
 <img width="2752" height="1536" alt="System_Architecture" src="https://github.com/user-attachments/assets/ea330458-f94a-4686-9177-2c91cedbd0e0" />
+
+
+
+---
+
+## 2.2 Functional Requirements
+
+The system should allow users to:
+
+* register and log in securely,
+* manage profiles,
+* create posts and stories,
+* upload media and code snippets,
+* send real-time messages,
+* follow and connect with users,
+* and receive notifications.
+
+---
+
+## 2.3 Database Design
+
+MongoDB Atlas is used as the primary database system for ZingUp. The platform uses a document-oriented NoSQL database structure for managing dynamic social networking data.
+
+The major collections used in the system are:
+
+* User
+* Post
+* Story
+* Message
+* Connection
+
+The database design provides scalability, flexibility, and efficient handling of user-generated content.
+
+---
+
+## 2.4 Entity Relationship (ER) Diagram
+
+The ER Diagram represents the relationships between major entities such as User, Post, Story, Message, Comment, and Connection.
+
+A User can create posts and stories, send messages, and establish connections with other users. The ER model provides a logical representation of the database structure used within the platform.
+
+**[Figure 2.2: ER Diagram — Insert diagram here]**
+<img width="1536" height="1024" alt="erfinal2" src="https://github.com/user-attachments/assets/8f933f97-327a-4194-a4b2-81bfad51aead" />
+---
+
+## 2.5 Data Flow Diagram (DFD)
+
+The Data Flow Diagram illustrates the movement of data between users, system processes, and the database.
+
+The Level 0 DFD shows the overall interaction between users and the system, while the Level 1 DFD provides a detailed representation of authentication, post management, messaging, and profile handling processes.
+
+**[Figure 2.3: DFD Level 0 — Insert diagram here]**
+<img width="4817" height="1586" alt="Untitled diagram-2026-01-14-181123" src="https://github.com/user-attachments/assets/33c61a36-4119-414d-a94f-5e53bd97d14f" />
+
+**[Figure 2.4: DFD Level 1 — Insert diagram here]**
+<img width="6166" height="4189" alt="ImageKit Media Pipeline-2026-01-14-181430" src="https://github.com/user-attachments/assets/bd544ad5-aef3-46de-a685-af44744a5185" />
+
+---
+
+## 2.6 System Workflow
+
+The workflow of ZingUp begins with user authentication and profile initialization. After login, users can create posts, upload stories, send messages, discover developers, and interact with technical content.
+
+Media uploads are processed using ImageKit cloud services, while background tasks and notifications are handled using Inngest functions.
+
+
+
+
+
 
 
 
