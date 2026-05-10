@@ -824,8 +824,162 @@ export default api
 
 # Backend
 
+#### server/server.js — Server Entry Point
+import express from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+import connectDB from './configs/db.js';
+import {inngest, functions} from './inngest/index.js'
+import {serve} from 'inngest/express'
+import { clerkMiddleware } from '@clerk/express'
+import userRouter from './routes/userRotes.js';
+import postRouter from './routes/postRoutes.js';
+import storyRouter from './routes/storyRoutes.js';
+import messageRouter from './routes/messageRoutes.js';
 
+const app = express();
 
+await connectDB();
+
+app.use(express.json());
+app.use(cors());
+app.use(clerkMiddleware());
+
+app.get('/', (req, res)=> res.send('Server is running'))
+app.use('/api/inngest', serve({ client: inngest, functions }))
+app.use('/api/user', userRouter)
+app.use('/api/post', postRouter)
+app.use('/api/story', storyRouter)
+app.use('/api/message', messageRouter)
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, ()=> console.log(`Server is running on port ${PORT}`))
+
+#### server/configs/db.js — Database Connection
+import mongoose from 'mongoose';
+
+const connectDB = async () => {
+    try {
+        mongoose.connection.on('connected', ()=> console.log('Database connected'))
+        await mongoose.connect(`${process.env.MONGODB_URI}/pingup`)
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+export default connectDB
+
+#### server/middlewares/auth.js — Auth Middleware
+export const protect = async (req, res, next) => {
+    try {
+        const {userId} = await req.auth();
+        if(!userId){
+            return res.json({success: false, message: "not authenticated"  })
+        }
+        next()
+    } catch (error) {
+        res.json({success: false, message: error.message  })
+    }
+}
+
+#### server/models/User.js — User Schema
+
+import mongoose from 'mongoose';
+
+const userSchema = new mongoose.Schema({
+    _id: {type: String, required: true },
+    email: {type: String, required: true },
+    full_name: {type: String, required: true },
+    username: {type: String, unique: true },
+    bio: {type: String, default: 'Hey there! I am using ZingUp.' },
+    profile_picture: {type: String, default: '' },
+    cover_photo: {type: String, default: '' },
+    location: {type: String, default: '' },
+    social_media: {
+        linkedin: {type: String, default: ''},
+        twitter: {type: String, default: ''},
+        github: {type: String, default: ''},
+        devto: {type: String, default: ''},
+        medium: {type: String, default: ''},
+        portfolio: {type: String, default: ''}
+    },
+    followers: [{type: String, ref: 'User' }],
+    following: [{type: String, ref: 'User' }],
+    connections: [{type: String, ref: 'User' }],
+},{timestamps: true, minimize: false})
+
+const User = mongoose.model('User', userSchema)
+
+export default User
+
+#### server/models/Connection.js — Connection Schema
+
+import mongoose from 'mongoose';
+
+const connectionSchema = new mongoose.Schema({
+    from_user_id: {type: String, ref: 'User', required: true,},
+    to_user_id: {type: String, ref: 'User', required: true,},
+    status: {type: String, enum: ['pending', 'accepted'], default: 'pending'},
+},{timestamps: true})
+
+const Connection = mongoose.model('Connection', connectionSchema)
+
+export default Connection
+
+#### server/controllers/messageController.js — Messaging + SSE
+
+import Message from "../models/Message.js"
+
+const clients = {}
+
+export const sse = (req, res) => {
+
+  const { userId } = req.params
+
+  res.setHeader("Content-Type", "text/event-stream")
+
+  clients[userId] = res
+
+  req.on("close", () => {
+    delete clients[userId]
+  })
+}
+
+export const sendMessage = async (req, res) => {
+
+  const { userId } = req.auth()
+  const { to_user_id, text } = req.body
+
+  const message = await Message.create({
+    from_user_id: userId,
+    to_user_id,
+    text
+  })
+
+  if (clients[to_user_id]) {
+    clients[to_user_id].write(`data: ${JSON.stringify(message)}\n\n`)
+  }
+
+  res.json({ success: true, message })
+}
+
+export const getMessages = async (req, res) => {
+
+  const { userId } = req.auth()
+  const { to_user_id } = req.body
+
+  const messages = await Message.find({
+    $or: [
+      { from_user_id: userId, to_user_id },
+      { from_user_id: to_user_id, to_user_id: userId }
+    ]
+  })
+
+  res.json({ success: true, messages })
+}
+
+#### server/inngest/index.js — Background Jobs
 
 
 
